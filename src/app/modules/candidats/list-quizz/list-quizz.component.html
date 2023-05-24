@@ -1,0 +1,34 @@
+<div class ="quizz">
+    <h3>Examen {{specialite}}</h3>
+    <ng-template #multiChoice>
+        <label> Reponse 1
+            <input type="checkbox" value="val1"/>
+        </label>
+        <label> Reponse 2
+            <input type="checkbox" value="val2"/>
+        </label>
+        <label> Reponse 3
+            <input type="checkbox" value="val3"/>
+        </label>
+    </ng-template>
+
+    <ng-template #singleChoice>
+        <label> Reponse 1
+            <input type="radio" value="val1"/>
+        </label>
+        <label> Reponse 2
+            <input type="radio" value="val2"/>
+        </label>
+        <label> Reponse 3
+            <input type="radio" value="val3"/>
+        </label>
+    </ng-template>
+
+    <ng-template #openChoice>
+        <h5>{{titre}}</h5>
+        <h3>{{description}}</h3>
+        <label> Votre reponse
+            <textarea type="text" value="val1"></textarea>
+        </label>
+    </ng-template>
+</div>
