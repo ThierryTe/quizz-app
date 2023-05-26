@@ -11,14 +11,11 @@ export class QuizService {
       titre:"Premiere question Java",
       type: "MultiChoice", 
       category: "Java",
-      reponse: [
-        {libelle: "rep 1", id:"rep_1"},
-        {libelle: "rep 2", id:"rep_2"},
-      ], 
+      userChoice:[], 
       propositions: [
-        {libelle: "rep 1", id:"rep_1"},
-        {libelle: "rep 2", id:"rep_2"},
-        {libelle: "rep 3", id:"rep_3"}
+        {libelle: "rep 1", id:"rep_1", isCorrect: false},
+        {libelle: "rep 2", id:"rep_2", isCorrect: false},
+        {libelle: "rep 3", id:"rep_3", isCorrect: true}
       ] 
     },
     {
@@ -26,13 +23,11 @@ export class QuizService {
       titre:"Deuxieme question Java",
       type: "SingleChoice", 
       category: "Java",
-      reponse: [
-        {libelle: "rep 1", id:"rep_1"},
-      ], 
+      userChoice:[],
       propositions: [
-        {libelle: "rep 12", id:"rep_12"},
-        {libelle: "rep 22", id:"rep_22"},
-        {libelle: "rep 32", id:"rep_32"}
+        {libelle: "rep 12", id:"rep_12", isCorrect: false},
+        {libelle: "rep 22", id:"rep_22", isCorrect: false},
+        {libelle: "rep 32", id:"rep_32", isCorrect: true}
       ] 
     },
     {
@@ -40,19 +35,19 @@ export class QuizService {
       titre:"Premiere question angular",
       type: "OpenChoice", 
       category: "Angular",
-      reponse: [{libelle: "rep 123", id:"rep_123"},],
-      propositions: []
+      userChoice:[],
+      propositions: ['reponse', '*reponse']
     },
     {
       id: 4,
       titre:"Deuxieme question angular",
       type: "SingleChoice", 
       category: "Angular",
-      reponse: [{libelle: "rep 124", id:"rep_124"},],
+      userChoice:[],
       propositions: [
-        {libelle: "rep 124", id:"rep_124"},
-        {libelle: "rep 224", id:"rep_224"},
-        {libelle: "rep 324", id:"rep_324"}
+        {libelle: "rep 124", id:"rep_124", isCorrect: false},
+        {libelle: "rep 224", id:"rep_224", isCorrect: false},
+        {libelle: "rep 324", id:"rep_324", isCorrect: true}
       ] 
     }
   ];
@@ -60,6 +55,11 @@ export class QuizService {
   constructor() { }
 
   getQuizzesByService(category: string) {
-    return this.listQuizz
+    return this.listQuizz.filter(item => item.category === category)
+  }
+
+  saveReponse(id:number, response:any) : void {
+    let quizIndex : any = this.listQuizz.findIndex(item => item.id === id)
+    this.listQuizz[quizIndex].userChoice = response
   }
 }

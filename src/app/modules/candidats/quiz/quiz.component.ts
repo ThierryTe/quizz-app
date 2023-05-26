@@ -29,12 +29,6 @@ export class QuizComponent implements OnInit{
 
   currentTemp!: TemplateRef<any>;
 
-  test = [
-    {libelle: "rep 12", id:"rep_12"},
-    {libelle: "rep 22", id:"rep_22"},
-    {libelle: "rep 32", id:"rep_32"}
-  ];
-
   ngOnInit(): void {
     console.log(this.quizz.propositions)
     if(this.quizz.type === "MultiChoice") {
