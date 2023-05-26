@@ -1,1 +1,10 @@
-<p>score works!</p>
+<div class="content">
+    <div class="score-container">
+        <h1>Quiz Score</h1>
+        <div class="score"> {{score / totalScore | percent}} </div>
+        <div class="message">Toutes nos félicitations! Vous avez terminé le quiz.</div>
+        <div class="button-container">
+          <a routerLink="/" class="button" >Restart Quiz</a>
+        </div>
+    </div>
+</div>

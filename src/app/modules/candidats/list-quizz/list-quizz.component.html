@@ -1,26 +1,26 @@
 <!-- Question à choix multiples -->
-<ng-template #multiChoice let-propositions>
+<ng-template #multiChoice let-propositions let-quiz="quiz" let-groupName="groupName">
     <ul>
         <li *ngFor="let proposition of propositions">
-            <input type="checkbox" [value]="proposition.id" />
+            <input type="checkbox" (change)="selectedResponseChecbox($event, quiz)" [value]="proposition.libelle" />
             <label>{{ proposition.libelle }}</label>
         </li>
     </ul>
 </ng-template>
 
 <!-- Question à choix unique -->
-<ng-template #singleChoice let-propositions let-groupName="groupName">
+<ng-template #singleChoice let-propositions let-quiz="quiz" let-groupName="groupName">
   <ul>
     <li *ngFor="let proposition of propositions">
-      <input type="radio" [name]="groupName" [value]="proposition.id" />
+      <input type="radio" [name]="groupName" (change)="selectedResponseRadioOrInput($event, quiz)" [value]="proposition.libelle" />
       <label>{{ proposition.libelle }}</label>
     </li>
   </ul>
 </ng-template>
 
 <!-- Question à réponse libre -->
-<ng-template #openChoice>
-    <textarea rows="5"></textarea>
+<ng-template #openChoice  let-quiz="quiz">
+    <textarea (change)="selectedResponseRadioOrInput($event, quiz)" rows="5"></textarea>
 </ng-template>  
 
 
@@ -39,6 +39,6 @@
             </app-quiz>
         </ng-container>
       
-    <button>Valider</button>
+        <button (click)="submitResponse()">Valider</button>
+    </div>
 </div>
-  

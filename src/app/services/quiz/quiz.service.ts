@@ -11,10 +11,10 @@ export class QuizService {
       titre:"Premiere question Java",
       type: "MultiChoice", 
       category: "Java",
-      userChoice:[], 
+      userChoice:<any>[], 
       propositions: [
         {libelle: "rep 1", id:"rep_1", isCorrect: false},
-        {libelle: "rep 2", id:"rep_2", isCorrect: false},
+        {libelle: "rep 2", id:"rep_2", isCorrect: true},
         {libelle: "rep 3", id:"rep_3", isCorrect: true}
       ] 
     },
@@ -23,7 +23,7 @@ export class QuizService {
       titre:"Deuxieme question Java",
       type: "SingleChoice", 
       category: "Java",
-      userChoice:[],
+      userChoice:<any>[],
       propositions: [
         {libelle: "rep 12", id:"rep_12", isCorrect: false},
         {libelle: "rep 22", id:"rep_22", isCorrect: false},
@@ -35,15 +35,18 @@ export class QuizService {
       titre:"Premiere question angular",
       type: "OpenChoice", 
       category: "Angular",
-      userChoice:[],
-      propositions: ['reponse', '*reponse']
+      userChoice:<any>[],
+      propositions: [
+        {libelle: "reponse", id:"rep_12pp", isCorrect: true},
+        {libelle: "reponse ", id:"rep_12pp", isCorrect: true}
+      ]
     },
     {
       id: 4,
       titre:"Deuxieme question angular",
       type: "SingleChoice", 
       category: "Angular",
-      userChoice:[],
+      userChoice:<any>[],
       propositions: [
         {libelle: "rep 124", id:"rep_124", isCorrect: false},
         {libelle: "rep 224", id:"rep_224", isCorrect: false},
@@ -52,14 +55,16 @@ export class QuizService {
     }
   ];
 
+  score: number = 0;
+  totalQuestion: number = 0
   constructor() { }
 
   getQuizzesByService(category: string) {
     return this.listQuizz.filter(item => item.category === category)
   }
 
-  saveReponse(id:number, response:any) : void {
+  saveReponse(id:number, response: any) : void {
     let quizIndex : any = this.listQuizz.findIndex(item => item.id === id)
-    this.listQuizz[quizIndex].userChoice = response
+    this.listQuizz[quizIndex].userChoice.push(response)
   }
 }

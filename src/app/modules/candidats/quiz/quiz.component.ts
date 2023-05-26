@@ -30,7 +30,6 @@ export class QuizComponent implements OnInit{
   currentTemp!: TemplateRef<any>;
 
   ngOnInit(): void {
-    console.log(this.quizz.propositions)
     if(this.quizz.type === "MultiChoice") {
       this.currentTemp = this.multiChoice!
     } 

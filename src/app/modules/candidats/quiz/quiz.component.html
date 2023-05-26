@@ -2,6 +2,6 @@
     <h2>{{ quizz.titre }}</h2>
     <ng-container
         [ngTemplateOutlet]="currentTemp"
-        [ngTemplateOutletContext]="{ $implicit: quizz.propositions, groupName: quizz.groupName }"
+        [ngTemplateOutletContext]="{ $implicit: quizz.propositions, groupName: quizz.groupName, quiz: quizz }"
     ></ng-container>
 </div>
