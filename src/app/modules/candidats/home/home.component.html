@@ -1,12 +1,19 @@
-<div class="container bg-light py-5">
- <h1 class="display-5 fw-bold"> Bienvenue sur notre application de Quizz</h1>
-<div class="name col-md-4 my-3">
+
+<div class="container">
+   <h1>Bienvenue sur notre application de Quizz</h1>
+   <form>
+     <div class="form-group">
+       <label for="selectOption">Choisissez une option :</label>
        <select [(ngModel)] = "specialite" name="specialite">
-        <option value="Java">Java</option>
-        <option value="Angular">Angular</option>
+         <option value="option1" value="Java">Java</option>
+         <option value="option2" value="Angular">Angular</option>
        </select>
-       <button>
-         <a  [routerLink]="['/quizz', specialite]">Commencez</a> 
-       </button>
- </div>
- </div>
+     </div>
+     <button [disabled]="specialite === null || specialite === undefined" [routerLink]="['/quizz', specialite]">
+         Commencez
+     </button>
+   </form>
+</div>
+
+
+ 
