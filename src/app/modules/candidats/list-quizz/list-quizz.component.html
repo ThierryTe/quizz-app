@@ -1,34 +1,44 @@
-<div class ="quizz">
-    <h3>Examen {{specialite}}</h3>
-    <ng-template #multiChoice>
-        <label> Reponse 1
-            <input type="checkbox" value="val1"/>
-        </label>
-        <label> Reponse 2
-            <input type="checkbox" value="val2"/>
-        </label>
-        <label> Reponse 3
-            <input type="checkbox" value="val3"/>
-        </label>
-    </ng-template>
+<!-- Question à choix multiples -->
+<ng-template #multiChoice let-propositions>
+    <ul>
+        <li *ngFor="let proposition of propositions">
+            <input type="checkbox" [value]="proposition.id" />
+            <label>{{ proposition.libelle }}</label>
+        </li>
+    </ul>
+</ng-template>
 
-    <ng-template #singleChoice>
-        <label> Reponse 1
-            <input type="radio" value="val1"/>
-        </label>
-        <label> Reponse 2
-            <input type="radio" value="val2"/>
-        </label>
-        <label> Reponse 3
-            <input type="radio" value="val3"/>
-        </label>
-    </ng-template>
+<!-- Question à choix unique -->
+<ng-template #singleChoice let-propositions let-groupName="groupName">
+  <ul>
+    <li *ngFor="let proposition of propositions">
+      <input type="radio" [name]="groupName" [value]="proposition.id" />
+      <label>{{ proposition.libelle }}</label>
+    </li>
+  </ul>
+</ng-template>
 
-    <ng-template #openChoice>
-        <h5>{{titre}}</h5>
-        <h3>{{description}}</h3>
-        <label> Votre reponse
-            <textarea type="text" value="val1"></textarea>
-        </label>
-    </ng-template>
+<!-- Question à réponse libre -->
+<ng-template #openChoice>
+    <textarea rows="5"></textarea>
+</ng-template>
+
+
+<div class="quiz-container">
+    <h1>Quiz {{specialite}}</h1>
+  
+    <div class="question-list">
+      
+        <ng-container *ngFor="let quiz of listQuizz">
+            <app-quiz 
+                [quizz]="quiz"
+                [multiChoice]="multiChoice"
+                [openChoice]="openChoice"
+                [singleChoice]="singleChoice"
+            >
+            </app-quiz>
+        </ng-container>
+      
+    <button>Valider</button>
 </div>
+  

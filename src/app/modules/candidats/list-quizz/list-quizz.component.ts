@@ -1,4 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { AfterContentChecked, Component, Inject, Input, OnInit } from '@angular/core';
+import {QuizComponent} from '../quiz/quiz.component'
+import { CommonModule } from '@angular/common';
+import { QuizService } from 'src/app/services/quiz/quiz.service';
+import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
+
 enum TypeQuestion {
   MultiChoice,
   SingleChoice,
@@ -10,24 +15,32 @@ enum TypeQuestion {
   templateUrl: './list-quizz.component.html',
   styleUrls: ['./list-quizz.component.scss'],
   standalone: true,
-
+  imports: [QuizComponent, CommonModule]
 })
 
-export class ListQuizzComponent {
+export class ListQuizzComponent implements OnInit {
   
-    @Input() 
-    specialite!: string
+  @Input() 
+  specialite!: string
 
-    titre: string ="Question1"
-    description: string = "Description"
+  titre: string ="Question1"
+  description: string = "Description"
 
-    listQuizz: any[] = [
-      {titre:"Question 1", description: "Une description question 1", type: TypeQuestion.MultiChoice, reponse: ["rep 1", "rep 2"], propositions: ["rep 1", "rep 2", "rep 3"] },
-      {titre:"Question 2", description: "Une description question 2", type: TypeQuestion.SingleChoice, reponse: ["rep 1"], propositions: ["rep 2", "rep 1"]},
-      {titre:"Question 3", description: "Une description question 3", type: TypeQuestion.openChoice, reponse: ["rep 1"]},
-  ];
+  listQuizz!: any[]
 
+  constructor(private quizService : QuizService, private sanitizer: DomSanitizer) {}
   
+
+  ngOnInit(): void {
+    this.getQuiz()
+  }
+
+  getQuiz() {
+    this.listQuizz = this.quizService.getQuizzesByService(this.specialite)
+    this.listQuizz.forEach((quiz: any) => {
+      quiz.groupName = `question_${quiz.id}`;
+    });
+  }
 
 }
 
