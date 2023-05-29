@@ -19,13 +19,25 @@
     float: right;
     margin-top: 8px;
   }
+
   .timer span{
-    font-size: 15px;
+    font-size: 12px;
     color: white;
-    background-color: gray;
-    border-radius: 2px;
+    border-radius: 10px;
     padding: 5px 10px 5px 10px;
     font-weight: bold;
+  }
+
+  .initial{
+    background-color: rgb(27, 111, 195);
+  }
+
+  .warning{
+    background-color: rgb(209, 147, 32);
+  }
+
+  .finish{
+    background-color: #f44336;
   }
   
   .question-list {

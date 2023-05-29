@@ -8,10 +8,10 @@ import { Router, RouterModule } from '@angular/router';
 import { Observable, Subscriber, Subscription, interval, map, take, takeUntil, timer } from 'rxjs';
 
 
-enum TypeQuestion {
-  MultiChoice,
-  SingleChoice,
-  openChoice,
+enum QuizStatus {
+  Initial = 'Initial',
+  Warning = 'Warning',
+  Finish = 'Finish',
 }
 
 @Component({
@@ -35,9 +35,9 @@ export class ListQuizzComponent implements OnInit, OnDestroy{
 
   listQuizz!: any[]
   timeInsecond: number = 0
-  isTimerOut: boolean = false
   subscriber!: Subscription
   countTime! : number
+  timerStatus!: QuizStatus; 
   listResponse : {id: number, propositions: any[], reponses: any[]}[] = []
 
   constructor(private fb:FormBuilder,private quizService : QuizService, private router: Router) {}
@@ -46,19 +46,27 @@ export class ListQuizzComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.getQuiz()
-    
+    this.timerStatus = QuizStatus.Initial
     this.countTime = this.timeInsecond
     const source = interval(1000);
     this.subscriber = source.pipe(
       take(this.timeInsecond + 1),
       map(value => this.timeInsecond - value)
       ).subscribe({
-      next: (val) => {console.log(val); this.countTime = val},
+      next: (val) => {
+        console.log(val);
+        this.countTime = val
+
+        if(this.timeInsecond / 3 >= val) {
+          this.timerStatus = QuizStatus.Warning
+          console.log(this.timerStatus)
+        }
+      },
       error: (e) => console.error(e),
       complete: () => {
         // console.log(0);
         // this.countTime = this.timeInsecond
-        this.isTimerOut = true
+        this.timerStatus = QuizStatus.Finish
       }
     });
   } 
