@@ -11,7 +11,7 @@ export class QuizService {
       titre:"Premiere question Java",
       type: "MultiChoice", 
       category: "Java",
-      timeInSecond: 5, 
+      timeInSecond: 30, 
       userChoice:<any>[], 
       propositions: [
         {libelle: "rep 1", id:"rep_1", isCorrect: false},
@@ -24,7 +24,7 @@ export class QuizService {
       titre:"Deuxieme question Java",
       type: "SingleChoice", 
       category: "Java",
-      timeInSecond: 5,
+      timeInSecond: 30,
       userChoice:<any>[],
       propositions: [
         {libelle: "rep 12", id:"rep_12", isCorrect: false},
@@ -37,7 +37,7 @@ export class QuizService {
       titre:"Premiere question angular",
       type: "OpenChoice", 
       category: "Angular",
-      timeInSecond: 5,
+      timeInSecond: 30,
       userChoice:<any>[],
       propositions: [
         {libelle: "reponse", id:"rep_12pp", isCorrect: true},
@@ -49,7 +49,7 @@ export class QuizService {
       titre:"Deuxieme question angular",
       type: "SingleChoice", 
       category: "Angular",
-      timeInSecond: 5,
+      timeInSecond: 30,
       userChoice:<any>[],
       propositions: [
         {libelle: "rep 124", id:"rep_124", isCorrect: false},
