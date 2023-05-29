@@ -25,7 +25,11 @@
 
 
 <div class="quiz-container">
-    <h1>Quiz {{specialite}}</h1>
+    <div class="timer">
+        <span>{{countTime}}</span>
+    </div>
+
+    <h1>Quiz {{specialite}} </h1>
   
     <div class="question-list">
       
@@ -39,6 +43,12 @@
             </app-quiz>
         </ng-container>
       
-        <button (click)="submitResponse()">Valider</button>
+        <ng-container *ngIf="isTimerOut">
+            <div class="alert-tiemout">
+                <p>Désolé le temps imparti pour le Quizz a expiré</p>
+            </div>
+        </ng-container>
+
+        <button [disabled]="isTimerOut" class="button-avtive" (click)="submitResponse()">Valider</button>
     </div>
 </div>

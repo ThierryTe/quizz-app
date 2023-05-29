@@ -1,10 +1,12 @@
-import { AfterContentChecked, Component, Inject, Input, OnInit } from '@angular/core';
+import { AfterContentChecked, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import {QuizComponent} from '../quiz/quiz.component'
 import { CommonModule } from '@angular/common';
 import { QuizService } from 'src/app/services/quiz/quiz.service';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { Observable, Subscriber, Subscription, interval, map, take, takeUntil, timer } from 'rxjs';
+
 
 enum TypeQuestion {
   MultiChoice,
@@ -20,7 +22,7 @@ enum TypeQuestion {
   imports: [QuizComponent, CommonModule, ReactiveFormsModule, FormsModule, RouterModule]
 })
 
-export class ListQuizzComponent implements OnInit {
+export class ListQuizzComponent implements OnInit, OnDestroy{
   
   @Input() 
   specialite!: string
@@ -32,18 +34,38 @@ export class ListQuizzComponent implements OnInit {
   
 
   listQuizz!: any[]
-
+  timeInsecond: number = 0
+  isTimerOut: boolean = false
+  subscriber!: Subscription
+  countTime! : number
   listResponse : {id: number, propositions: any[], reponses: any[]}[] = []
 
-  constructor(private fb:FormBuilder,private quizService : QuizService, private router: Router) {
-
-  }
+  constructor(private fb:FormBuilder,private quizService : QuizService, private router: Router) {}
   
   responseUserQuizzes : any[] = [];
 
   ngOnInit(): void {
     this.getQuiz()
-  }
+    
+    this.countTime = this.timeInsecond
+    const source = interval(1000);
+    this.subscriber = source.pipe(
+      take(this.timeInsecond + 1),
+      map(value => this.timeInsecond - value)
+      ).subscribe({
+      next: (val) => {console.log(val); this.countTime = val},
+      error: (e) => console.error(e),
+      complete: () => {
+        // console.log(0);
+        // this.countTime = this.timeInsecond
+        this.isTimerOut = true
+      }
+    });
+  } 
+
+  ngOnDestroy(): void {
+    this.subscriber.unsubscribe()
+  }  
 
   selectedResponseChecbox($event : any, quiz: any) {
     
@@ -118,6 +140,8 @@ export class ListQuizzComponent implements OnInit {
   getQuiz() {
     this.listQuizz = this.quizService.getQuizzesByService(this.specialite)
     this.listQuizz.forEach((quiz: any) => {
+      this.timeInsecond += quiz.timeInSecond
+      // console.log(this.timeInsecond)
       quiz.groupName = `question_${quiz.id}`;
     });
   }
