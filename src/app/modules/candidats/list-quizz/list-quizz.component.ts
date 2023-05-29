@@ -137,7 +137,16 @@ export class ListQuizzComponent implements OnInit, OnDestroy{
       let result = this.checkCorrectAnswer(itemResponse)
       console.log(result)
       if(result) {
-        score++
+        let correctProposition = itemResponse.propositions.filter(item => item.isCorrect);
+        //Check pour le choix multiple
+        if(correctProposition.length>1){
+          let countAllResponses = correctProposition.length;
+          let countCandidatResponses = itemResponse.reponses.length;
+          let val = countCandidatResponses /countAllResponses
+          score+=val
+        }
+        else
+          score++
       }
     }
     this.quizService.score = score
