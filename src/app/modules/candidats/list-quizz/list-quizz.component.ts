@@ -54,12 +54,12 @@ export class ListQuizzComponent implements OnInit, OnDestroy{
       map(value => this.timeInsecond - value)
       ).subscribe({
       next: (val) => {
-        console.log(val);
+        // console.log(val);
         this.countTime = val
 
         if(this.timeInsecond / 3 >= val) {
           this.timerStatus = QuizStatus.Warning
-          console.log(this.timerStatus)
+          // console.log(this.timerStatus)
         }
       },
       error: (e) => console.error(e),
