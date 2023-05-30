@@ -38,7 +38,7 @@ export class ListQuizzComponent implements OnInit, OnDestroy{
   subscriber!: Subscription
   countTime! : number
   timerStatus!: QuizStatus; 
-  listResponse : {id: number, propositions: any[], reponses: any[]}[] = []
+  listResponse : {id: number, type: string, propositions: any[], reponses: any[]}[] = []
 
   constructor(private fb:FormBuilder,private quizService : QuizService, private router: Router) {}
   
@@ -84,7 +84,7 @@ export class ListQuizzComponent implements OnInit, OnDestroy{
         itemResponse.reponses.push($event.target.value)
         var item = itemResponse
       } else {
-        var item : {id: number, propositions: any[], reponses: any[]} = {id: quiz.id, propositions: quiz.propositions, reponses: [$event.target.value] }
+        var item : {id: number, type: string, propositions: any[], reponses: any[]} = {id: quiz.id, type: quiz.type, propositions: quiz.propositions, reponses: [$event.target.value] }
       }
       this.listResponse.push(item)
     } else {
@@ -104,7 +104,7 @@ export class ListQuizzComponent implements OnInit, OnDestroy{
       itemResponse.reponses = [$event.target.value]
       var item = itemResponse
     } else {
-      var item : {id: number, propositions: any[], reponses: any[]} = {id: quiz.id, propositions: quiz.propositions, reponses: [$event.target.value] }
+      var item : {id: number, type: string, propositions: any[], reponses: any[]} = {id: quiz.id, type: quiz.type, propositions: quiz.propositions, reponses: [$event.target.value] }
     }
     this.listResponse.push(item)
     console.log(this.listResponse);
@@ -139,7 +139,7 @@ export class ListQuizzComponent implements OnInit, OnDestroy{
       if(result) {
         let correctProposition = itemResponse.propositions.filter(item => item.isCorrect);
         //Check pour le choix multiple
-        if(correctProposition.length>1){
+        if(itemResponse.type === "MultiChoice"){
           let countAllResponses = correctProposition.length;
           let countCandidatResponses = itemResponse.reponses.length;
           let val = countCandidatResponses /countAllResponses
