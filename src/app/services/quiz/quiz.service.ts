@@ -40,8 +40,8 @@ export class QuizService {
       timeInSecond: 30,
       userChoice:<any>[],
       propositions: [
-        {libelle: "reponse", id:"rep_12pp", isCorrect: true},
-        {libelle: "reponse ", id:"rep_12pp", isCorrect: true}
+        {libelle: "reponse 1", id:"rep_12pp", isCorrect: true},
+        {libelle: "reponse 2", id:"rep_12pp", isCorrect: true}
       ]
     },
     {
