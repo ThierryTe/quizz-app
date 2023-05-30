@@ -55,7 +55,7 @@ export class QuizService {
         {libelle: "rep 124", id:"rep_124", isCorrect: false},
         {libelle: "rep 224", id:"rep_224", isCorrect: false},
         {libelle: "rep 324", id:"rep_324", isCorrect: true}
-      ] 
+      ]
     }
   ];
 
